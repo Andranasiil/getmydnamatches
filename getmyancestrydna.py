@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
    getmyancestrydna.py - Retrieve DNA matches information from AncestryDNA
-   Copyright (C) 2015-2018 Giulio Genovese (giulio.genovese@gmail.com)
+   Copyright (C) 2015-2018 Giulio Genovese (@gmail.com)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,20 +16,20 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-   Written by Giulio Genovese <giulio.genovese@gmail.com>
+   Written by Giulio Genovese <@gmail.com>
 """
 
-import sys, argparse, getpass, time, re, json, pandas as pd
-
+import sys, argparse, getpass, time, re, json, pandas as pd, requests
+"""
 try:
     import requests
 except ImportError:
     sys.stderr.write('You need to install the requests module first\n')
     sys.stderr.write('(run this in your terminal: "python3 -m pip install requests" or "python3 -m pip install --user requests")\n')
     exit(2)
-
+"""
 class Session:
-    def __init__(self, username, password, verbose, logfile, timeout, urlpfx = 'https://www.ancestry.com/dna/secure/'):
+    def __init__(self, username, password, verbose, logfile, timeout, urlpfx = 'https://www.ancestry.com/account/signin/'): #'https://www.ancestry.com/dna/secure/'):
         self.username = username
         self.password = password
         self.verbose = verbose
@@ -41,7 +41,7 @@ class Session:
         self.login()
 
     # This does not seem required anymore
-    def get_dna_version(self):
+    """def get_dna_version(self):
         url = 'http://www.ancestry.com/dna/'
         while True:
             if self.verbose:
@@ -77,10 +77,10 @@ class Session:
                 if self.verbose:
                     self.logfile.write(r.text + '\n')
                 time.sleep(self.timeout)
-                self.s = requests.Session() # sometimes the session will repeatedly fail and will need to be reset
+                self.s = requests.Session() # sometimes the session will repeatedly fail and will need to be reset"""
 
     def login(self):
-        url = 'https://www.ancestry.com/secure/login'
+        url = 'https://www.ancestry.com/account/signin' #'https://www.ancestry.com/secure/login'
         data = { 'username': self.username, 'password': self.password}
         while True:
             if self.verbose:
